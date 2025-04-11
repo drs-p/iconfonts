@@ -1,0 +1,21 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{iconfonts}[2025-04-11 1.0.0 LuaLaTeX support for Font Awesome and Academicons]
+
+\RequirePackage{iftex}
+\RequireLuaTeX
+
+\directlua{iconfonts = require("iconfonts.lua")}
+
+\NewDocumentCommand{\fontawesome}{s m}{%
+    \IfBooleanTF{#1}%
+        {\makebox[1.25em][c]{\directlua{iconfonts.fontawesome("#2")}}}%
+        {\directlua{iconfonts.fontawesome("#2")}}%
+}
+
+\NewDocumentCommand{\academicons}{s m}{%
+    \IfBooleanTF{#1}%
+        {\makebox[1.25em][c]{\directlua{iconfonts.academicons("#2")}}}%
+        {\directlua{iconfonts.academicons("#2")}}%
+}
+
+\endinput

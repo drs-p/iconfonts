@@ -1,0 +1,153 @@
+\DocumentMetadata{
+  lang        = en,
+  pdfversion  = 2.0,
+  pdfstandard = ua-2,
+  pdfstandard = a-4f,
+  % testphase   = latest
+}
+\documentclass[10pt, a4paper]{ltxdoc}
+\frenchspacing\setlength\parskip{0pt}\raggedbottom
+\usepackage{\jobname}
+
+\usepackage{geometry}
+\usepackage{hologo}
+\usepackage{luacode}
+\usepackage{multicol}
+
+\usepackage{fontspec}
+
+\setlength{\columnsep}{.5cm}
+
+\newcommand*{\iconlistlabel}[1]{\makebox[\labelwidth][c]{#1}}
+\newenvironment{iconlist}
+    {\begin{list}
+        {}
+        {%
+            \setlength{\topsep}{0pt}%
+            \setlength{\parskip}{0pt}%
+            \setlength{\partopsep}{0pt}%
+            \setlength{\leftmargin}{2.5em}%
+            \setlength{\labelwidth}{1.25em}%
+            \setlength{\labelsep}{1.25em}%
+            \setlength{\itemindent}{0pt}%
+            \setlength{\listparindent}{\parindent}%
+            \setlength{\parsep}{0pt}%
+            \setlength{\itemsep}{0pt}%
+            \let\makelabel\iconlistlabel%
+        }}
+    {\end{list}}
+
+\begin{document}
+\GetFileInfo{\jobname.sty}
+
+\title{The \textsf{\jobname} package\\Up-to-date \hologo{LuaLaTeX} support for \\\emph{Font Awesome Free} and \emph{Academicons}}
+\author{Marc Penninga\thanks{URL: \href{https://github.com/drs-p/iconfonts}{\fontawesome{github} github.com/drs-p/iconfonts}}}
+\date{Version \fileversion\ (\filedate);\\[3pt]
+includes Font Awesome Free version \directlua{tex.sprint(iconfonts._fontawesome_version)}\ and Academicons version \directlua{tex.sprint(iconfonts._academicons_version)}}
+
+\maketitle
+
+
+\tableofcontents
+
+
+\section{Introduction}
+There already exist several packages on CTAN that provide access to the \emph{Font Awesome Free} and \emph{Academicons} icon fonts, but these have all become outdated and are missing many icons from newer versions of those fonts.
+The \textsf{\jobname} package attempts to deal with the update problem by building the \hologo{LaTeX} support dynamically from data in the fonts themselves;
+updating the package is then as simple as replacing the font files with newer ones.
+The drawback of this approach is that the package only works with \hologo{LuaLaTeX}.
+
+
+\section{Installation}
+This package is not (yet?) available from CTAN, and hence also not included in \hologo{TeX}\,Live and other \hologo{TeX} distributions.
+It must therefore be installed manually;
+this is done by copying the contents of the \texttt{texmf/} directory to either your \texttt{\$TEXMFLOCAL} or your \texttt{\$TEXMFHOME} tree.
+Installing it in \texttt{\$TEXMFLOCAL} will make the package available to all users on the system, but may require administrator rights;
+installing it in \texttt{\$TEXMFHOME} makes it available only for your user.
+The precise values of \texttt{\$TEXMFLOCAL} and \texttt{\$TEXMFHOME} depend on your \hologo{TeX} installation; see your installation's documentation for more information.
+
+\pagebreak[2]
+If you are using \hologo{TeX}\,Live (or another \hologo{TeX} distribution that uses the \textsf{kpathsea} library),
+you can find the value of these variables by running
+\begin{center}
+    \verb|kpsewhich -expand-var '$TEXMFLOCAL'|
+\end{center}
+and similarly for \texttt{\$TEXMFHOME}.
+
+
+\section{Usage}
+The \textsf{\jobname} package contains all icons from the Academicons and Font Awesome Free fonts.
+\DescribeMacro{\fontawesome}\DescribeMacro{\academicons}The package provides two commands to access those icons: \cs{fontawesome} and \cs{academicons}. Each of these has a single, mandatory argument: the \meta{name} of the icon.
+
+Some Font Awesome icons have light or open variants, such as \fontawesome{face-smile} and \fontawesome{face-smile-o}.
+Those variants are accessed by adding \texttt{-o} to the icon name: \verb|\fontawesome{face-smile-o}| instead of \verb|\fontawesome{face-smile}|.
+A list of all icons and their names is included in the appendices.
+
+The icons have varying widths.
+\DescribeMacro{\fontawesome*}\DescribeMacro{\academicons*}Both commands have starred variants, \cs{fontawesome*} and \cs{academicons*}, that produce fixed-width icons (by centering them in a 1.25em wide box).
+
+
+\section{Copyright}
+\begin{itemize}
+            \setlength{\topsep}{0pt}%
+            \setlength{\parskip}{0pt}%
+            \setlength{\partopsep}{0pt}%
+            \setlength{\itemindent}{0pt}%
+            \setlength{\listparindent}{\parindent}%
+            \setlength{\parsep}{0pt}%
+            \setlength{\itemsep}{0pt}%
+    \item The Font Awesome fonts are Copyright 2024 Fonticons, Inc. (\url{https://fontawesome.com}), with Reserved Font Name “Font Awesome”.
+    \item The Academicons font is Copyright 2023 James Walsh, Katja Bercic (\url{https://jpswalsh.github.io/academicons}), with Reserved Font Name “Academicons”.
+    \item All other files are Copyright 2025 Marc Penninga.
+\end{itemize}
+
+
+\section{License}
+Both the Font Awesome fonts and the Academicons font are released under the SIL Open Font License, version 1.1.
+The rest of this package is released under the LaTeX Project Public License, version 1.3c.
+
+All brand icons are trademarks of their respective owners.
+The use of these trademarks does not indicate endorsement of the trademark holder by Font Awesome or the author, nor vice versa.
+\textbf{Please do not use brand logos for any purpose except to represent the company, product, or service to which they refer.}
+
+
+\newgeometry{hmargin={1cm,0cm}, vmargin={1cm,2cm}, footskip=1cm}
+\appendix
+\sffamily
+\raggedright
+
+\begin{luacode}
+function print_icon(name, icon)
+    tex.sprint(string.format("\\item[%s] %s", icon, name))
+end
+\end{luacode}
+
+\section{List of Font Awesome icons}
+\begin{multicols}{3}
+    \begin{iconlist}
+        \directlua{iconfonts._process_all_icons(print_icon, "solid", "regular")}
+    \end{iconlist}
+\end{multicols}
+
+\clearpage
+\section{List of Font Awesome brand icons}
+\begin{multicols}{3}
+    \begin{iconlist}
+        \directlua{iconfonts._process_all_icons(print_icon, "brands")}
+    \end{iconlist}
+\end{multicols}
+
+\clearpage
+\section{List of Academicons icons}
+\begin{multicols}{3}
+    \begin{iconlist}
+        \directlua{iconfonts._process_all_icons(print_icon, "academicons")}
+    \end{iconlist}
+\end{multicols}
+
+
+\end{document}
+
+
+%% end of file `iconfonts.tex'.
+
