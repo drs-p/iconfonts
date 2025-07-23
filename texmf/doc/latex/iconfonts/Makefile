@@ -1,6 +1,9 @@
 .PHONY: all
 
-all: iconfonts.pdf
+PDFS = iconfonts.pdf
+all:
+	-rm $(PDFS)
+	make $(PDFS)
 	latexmk -c
 	-rm iconfonts.hd
 
