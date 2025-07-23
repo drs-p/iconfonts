@@ -20,7 +20,7 @@ See the [manual](https://github.com/drs-p/iconfonts/blob/main/texmf/doc/latex/ic
 
 ### Copyright
 
--   The Font Awesome font files are Copyright 2024 Fonticons, Inc.
+-   The Font Awesome font files are Copyright 2025 Fonticons, Inc.
     (<https://fontawesome.com>), with Reserved Font Name “Font Awesome”.
 -   The Academicons font file is Copyright 2023 James Walsh and Katja Bercic
     (<https://jpswalsh.github.io/academicons>),

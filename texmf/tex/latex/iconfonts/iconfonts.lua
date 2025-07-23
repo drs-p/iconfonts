@@ -1,7 +1,7 @@
 local fonts = {
-    solid       = "Font Awesome 6 Free-Solid-900.otf",
-    regular     = "Font Awesome 6 Free-Regular-400.otf",
-    brands      = "Font Awesome 6 Brands-Regular-400.otf",
+    solid       = "Font Awesome 7 Free-Solid-900.otf",
+    regular     = "Font Awesome 7 Free-Regular-400.otf",
+    brands      = "Font Awesome 7 Brands-Regular-400.otf",
     academicons = "academicons.ttf"
 }
 
