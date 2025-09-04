@@ -3,6 +3,7 @@
 TEXMFLOCAL = $(shell kpsewhich -expand-var '$$TEXMFHOME')
 DOC_DIR = texmf/doc/latex/iconfonts
 VERSION = $(shell git describe)
+GIT_STATUS = $(shell git status --porcelain)
 
 all: doc
 
@@ -21,7 +22,8 @@ doc: install
 	cp -r texmf/doc "$(TEXMFLOCAL)"
 	texhash "$(TEXMFLOCAL)"
 
-dist: doc
+dist:
+	if [ "$(GIT_STATUS)" ]; then make doc; fi
 	mkdir -p dist
 	rm -f dist/iconfonts-$(VERSION).zip
 	zip -r dist/iconfonts-$(VERSION).zip texmf
