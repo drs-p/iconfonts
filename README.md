@@ -1,3 +1,7 @@
+**WARNING: DEVELOPMENT HAS MOVED TO [CODEBERG](https://codeberg.org/drs-p/iconfonts)**
+
+****
+
 # The <span class=sans-serif>iconfonts</span> package
 
 ## Up-to-date LuaLaTeX support for _Font Awesome Free_ and _Academicons_
